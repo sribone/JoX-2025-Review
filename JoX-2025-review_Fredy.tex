@@ -1,0 +1,132 @@
+\documentclass[12pt,a4paper, margin=2cm]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\geometry{margin=2cm}
+\usepackage{subcaption}
+\usepackage{array}
+\usepackage{tabularray}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage{color}
+\usepackage{multicol}
+
+
+% Do not compile the figure while mantaining the figure box
+%\usepackage[allfiguresdraft]{draftfigure}
+
+% To center content in table cells
+%\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+
+\begin{document}
+	\begin{center}
+		\textbf{Experimental and in silico aproaches to study CES substrate selectivity}
+		\vspace{0.25cm}
+
+		Sergio R. Ribone and Mario A. Quevedo 
+
+		\vspace{0.25cm}
+
+		Universidad Nacional de C\'ordoba. Facultad de Ciencias Qu\'imicas. Departamento de Ciencias Farmac\'euticas. Consejo Nacional de Investigaciones Cient\'ificas y T\'ecnicas (CONICET), Unidad de Inve
+stigaci\'on y Desarrollo en Tecnolog\'ia Farmac\'eutica (UNITEFA), C\'ordoba (X5000HUA), Argentina.\\
+
+		\vspace{0.25cm}
+
+		*sribone@unc.edu.ar
+
+
+	\end{center}
+	
+    \newpage
+
+	\begin{center}
+		\textbf{Abstract}    
+    \end{center}
+
+    Human carboxylesterases (CES) are enzymes that play a central role
+in the metabolism and biotransformation of diverse substances, where the two most relevant 
+isoforms, CES1 and CES2, catalyze the hydrolysis of numerous approved drugs and prodrugs.
+Understanding CES isoform substrate specificity is crucial for multiple research areas: 
+1) the design of prodrugs with optimized site-specific bioactivation, 2) the development
+of specific inhibitors for CES1 and CES2 and 3) the design of fluorescent probes 
+that specifically target CES1 and CES2 in complex biological systems.
+Various experimental and computational methodologies have been developed to quantify CES
+kinetic parameters (k\textsubscript{cat} and K\textsubscript{M}) for different substrates.
+This review will focus in the recent advancements in these methodologies to study 
+substrate selectivity between CES1 and CES2. Experimental measurements commonly use 
+recombinant CES or human tissue microsomes as enzyme sources. The quantification
+methods used were spectrophotomety (UV and fluorescence) and mass spectrometry, 
+where in most cases is previously couple with separation chromatographic methodologies in
+order to increase accuracy. Computational approaches are typically divided into two categories: 
+1) the modeling of substrate:CES recognition and affinity (molecular docking, molecular 
+dynamic simulation and free-energy of binding) and 2) the modeling of  the substrate:CES 
+hydrolysis (hybrid QM/MM simulation). Both approaches have demonstrated high accuracy in the
+explanation of experimental results. The advantages of integrating experimental and computational 
+techniques are evident in several studies that clarify the structural and mechanistic basis of CES 
+substrate selectivity. Given the biological relevance of CES-mediated catalysis, 
+this review aims to provide a concise resource for continued exploration of CES isoform
+specificity and its implications for drug, prodrug and fluorescent proves design.
+
+    \textbf{Keywords:} Carboxylesterases; CES1; CES2; substrate; selectivity; HPLC; LC/MS; Docking; MD simulation; QM/MM
+
+    \newpage
+
+\section{Introduction}
+
+Human Carboxylesterases (CES, EC 3.1.1.1) are serine hydrolase enzymes responsible for the metabolism and biotransformation of diverse endogenous and exogenous substances containing ester, thioester, amide, carb
+onate and carbamate moieties in their structure\cite{Wang2018a,Fukami2012,Hosokawa2008}. Based on amino acid sequence homology, human CES are classified into five isoforms (CES1–CES5). Among these, CES1 and CES2 are the most 
+clinically relevant isoforms\cite{CaseyLaizure2013,Dai2020,Xu2016}.
+
+CES1 and CES2 share 47\% of protein sequence identity but exhibit distinct substrate specificities and tissue distributions. Specifically, CES1 is primarily expressed in the liver, whereas CES2 is predominantly found in the intestines\cite{Wang2018a,CaseyLaizure2013,Hosokawa2008,Di2019}.  It is widely accepted in the literature that the substrate binding and hydrolysis selectivity of each isoform is primarily determinedby the size of the acyl and alkyl moieties of the respective substrate molecular structures\cite{Di2019,aseyLaizure2013,Xu2016,Fukami2015}, with CES1 preferentially catalyzing the hydrolysis of substrates with smaller alkyl than acyl groups, as seen with drugs and prodrugs like clopidogrel, oseltamivir and meperidine\cite{Zhang2014,Fukami2015,Fukami2012}. Conversely, CES2 tends to hydrolyze compounds with larger alkyl than acyl groups, examples of which include haloperidol, procaine and flutamide\cite{Wang2018a,Fukami2015,Hosokawa2008}. Despite this general trend, several exceptions to substrate selectivity have been reported. Notably, drugs and prodrugs like irinotecan, propanil, oxybutinin and prolocaine, with different proportion of alhyl and acyl groups sizes, have been shown to be  metabolized by both CES isoforms with similar efficiency\cite{Fukami2015,Honda2021}. In addition, a widely reported exception to the above mentioned general rule is heroin, which is mainly metabolized by CES1 regardless of the presence of a larger alkyl moiety respect to the acyl group\cite{Bencharit2003}. Another noteworthy example is the differential CES-mediated biotransformation rates of pyrethroid derivatives, where \textit{cis} and \textit{trans} isomers of permethrin exhibit distinct hydrolysis pattern by CES1 and CES2, 
+despite having identical acyl and alkyl group sizes. In this regard, \textit{trans}-permethrin is efficiently hydrolyzed by both
+CES isoforms, while \textit{cis}-permethrin is hydrolyzed mainly by CES2\cite{Yang2009}. An homologous phenomena was reported in the study of the different hydrolysis pattern for the eight cypermethrin and four fenvalerate stereoisomers\cite{Nishi2006}.
+
+Given the critical role of CES-mediated catalysis in various physiological processes, understanding the structural determinants of substrate specificity among CES isoforms is crucial for several areas of research. One of them is the design of prodrugs with optimized biopharmaceutical profiles. This approach aims to avoid undesirable early biotransformation of the prodrug or to enable site-specific bioactivation targeting a particular CES isoform\cite{Pratt2013,Fukami2012}. This approach was used in a clinical trial to study the best dose of CES-expressing allogeneic neural stem cells when given together with irinotecan in treating patients with high-grade brain gliomas.
+Placing genetically modified neural stem cells into brain tumor cells may make the tumor more sensitive to irinotecan because a site-specific bioactivation of this prodrug in the tumor cells\cite{Portnow2016}. Other relevant example are amide derived prodrugs of Gemcitabine used for the treatment of solid tumors, which are selectively bioactivated by CES2 overexpressed in certain type of cancers\cite{Pratt2013}. In addition, the development of specific inhibitors for CES1 and CES2 offers promising therapeutic potential to manage
+metabolic diseases. For instance, the CES1 inhibitor GR148672X has been explored as a candidate for treating hypertriglyceridemia, obesity and atherosclerosis\cite{Bachovchin2012}. In this regard, the inhibition of CES1 by a drug can impact the metabolization of another drug, known in clinic as drug-drug interaction effect. Several clinical trials study this effect, one of them evaluate the impact of a patients
+receiving a concomitant treatment with cannabidiol (CES1 inhibitor), in the  metabolization of methylphenidate (CES1 substrate)\cite{Markowitz2021}.
+
+In the field of medical imaging, there is growing interest in the development of fluorescent biological probes for selective detection of CES1 and CES2 activity\cite{Zhang2021,Elkhanoufi2022,Dai2021,Dai2020,Jia2021}. Over recent years, the selective imaging of \textit{in vivo} enzyme activity has emerged as a powerful method for the study of biological systems, due to its ability to provide real-time, noninvasive monitoring within living organisms\cite{Zhang2021,Elkhanoufi2022,Dai2021,Dai2020,Jia2021}. In this context, the design of fluorescent probes that specifically target CES1 and CES2 offers a promising strategy for visualizing their activity in complex biological systems.
+
+Enzymology has long been a foundational field for studying enzyme structure  and function, as well as advancing our understanding of biological phenomena such as intermediary metabolism, molecular biology, and cellular signaling and regulation\cite{Punekar2025}. Early enzymology focused primarily on experimental techniques aimed at analyzing the catalytic properties and molecular specificity of 
+enzymes\cite{Punekar2025}. The first one studies the thermodynamic and kinetic of the enzymatic reaction, measuring free-energy of reaction and activation. The second studies the specificity of different molecules for the enzymes, not only limited to the substrates, 
+but also any other molecule that satisfy the specificity criteria for the enzyme, as is the case for potential inhibitors\cite{Punekar2025}.
+
+Due to the complexity of enzymes and the challenges associated with studying biomolecular reactions, many questions and mechanisms remain unclear. Computational enzymology, defined as the study of enzymes and the their reactions mechanisms by molecular modeling and simulation
+\cite{VanDerKamp2013}, has the unique potential to investigate the dynamic behavior and reactions of biomolecules at atomic resolution. This approach can address unresolved issues by complementing and interpreting findings from experimental enzymology\cite{VanDerKamp2013,Lonsdale2010,Lodola2012}. In 1976, with the pioneering work of Warshel and Levitt (Nobel laureates in 2013), computational enzymology has rapidly evolved over the past two decades. This progress has been driven by close collaboration between experimental and computational enzymologists, enhancing our ability to explain and interpret experimental data\cite{VanDerKamp2013,Lonsdale2010,Lodola2012}.
+
+A huge advantage for experimetal and computational enzymology is the available crystallograpic structure of the enzyme. In this case, the crystallographic structure of human CES showed that the enzyme can be divided in three main functional domains: the catalytic domain, the $\alpha\beta$ domain and the regulatory domain\cite{Yao2018,Vistoli2010a}. In both CES isoforms, the catalytic site is located within the catalytic domain, including the classical Ser-His-Glu triad, typical of the serine hydrolase family (Ser221-His467-Glu354 and Ser228-His457-Glu345 for CES1 and CES2, respectively)\cite{Yao2018,Vistoli2010a}. Also, an oxyanion hole region is present within
+the catalytic site, lined by residues Gly142-Gly143-Ala222 and Gly149-Ala150-Ala229 in CES1 and CES2, respectively\cite{Yao2018,Vistoli2010a}.
+
+involving two consecutive reaction steps. First, the acylation step, where the carbonyl carbon of the substrate is attacked by the hydroxyl moiety from the catalytic serine, leading to the formation of an acylated serine intermediate and the release of the alkyl group of the substrate. Second, the deacylation reaction, where the carbonyl carbon of the acylated serine is attacked by the oxygen of a water molecule, yielding the caboxylic acid portion of the substrate and regenerating the free serine residue, thereby allowing a new catalytic cycle to begin (Figure~\ref{fig:CES_mechanism})\cite{Hosokawa2008,Yao2018,Ribone2025}.
+
+\begin{center}
+    \textbf{Figure~\ref{fig:CES_mechanism}}
+\end{center}
+
+
+Building on the symbiotic relationship between experimental and computational enzymology, this review will focus on the recent advancements in methodologies developed to study substrate selectivity between the two most important isoforms of human carboxylesterase: CES1 and CES2. In the first section, reported information regarding experimental enzymology to obtained data from different substrates with CES1 and CES2 will be discussed, starting with the various sources to obtained both enzymes for the experiments and going to the main methodologies to calculated the kinetic parameters involved in these studies. In the second section, reports dealing with molecular modeling techniques to study the affinity and hydrolytic properties of substrates for both CES will be developed. Finally, the last section will be devoted to some publication where the combination of both, experimental and computational studies, generate a more complete analysis of the CES-substrate selectivity.
+
+
+\section{Part I: Experimental enzymology}
+
+
+\newpage
+
+\bibliographystyle{ieeetr}
+\bibliography{JoX-2025.bib}{}
+
+\newpage
+
+\begin{figure}[!h]
+				\centering
+				\includegraphics[scale=0.4]{Figure5.png}
+				\caption{Acylation and deacylation reaction pathways for CES1 and CES2 catalyzed hydrolysis of the ester ligands. \textit{p}-nitrophenyl ester derivatives were used as example. Reactant state (RS), first transition state (TS1), intermediate (INT), second transition state (TS2) and product state (PS).}
+				\label{fig:CES_mechanism}
+			\end{figure}
+
+\end{document}
