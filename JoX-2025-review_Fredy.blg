@@ -4,45 +4,45 @@ The top-level auxiliary file: JoX-2025-review_Fredy.aux
 The style file: ieeetr.bst
 Database file #1: JoX-2025.bib
 Warning--I didn't find a database entry for "aseyLaizure2013"
-You've used 28 entries,
+You've used 81 entries,
             1876 wiz_defined-function locations,
-            701 strings with 9998 characters,
-and the built_in function-call counts, 9386 in all, are:
-= -- 971
-> -- 384
+            1055 strings with 25306 characters,
+and the built_in function-call counts, 30069 in all, are:
+= -- 2922
+> -- 1585
 < -- 0
-+ -- 139
-- -- 111
-* -- 683
-:= -- 1289
-add.period$ -- 31
-call.type$ -- 28
-change.case$ -- 27
++ -- 557
+- -- 476
+* -- 2377
+:= -- 4281
+add.period$ -- 84
+call.type$ -- 81
+change.case$ -- 80
 chr.to.int$ -- 0
-cite$ -- 28
-duplicate$ -- 471
-empty$ -- 788
-format.name$ -- 111
-if$ -- 2304
+cite$ -- 81
+duplicate$ -- 1410
+empty$ -- 2354
+format.name$ -- 476
+if$ -- 7218
 int.to.chr$ -- 0
-int.to.str$ -- 28
-missing$ -- 27
-newline$ -- 90
-num.names$ -- 28
-pop$ -- 54
+int.to.str$ -- 81
+missing$ -- 80
+newline$ -- 249
+num.names$ -- 81
+pop$ -- 132
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 405
+skip$ -- 1203
 stack$ -- 0
-substring$ -- 711
-swap$ -- 256
+substring$ -- 2266
+swap$ -- 771
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 91
-width$ -- 30
-write$ -- 300
+while$ -- 275
+width$ -- 83
+write$ -- 865
 (There was 1 warning)
