@@ -15,6 +15,7 @@
 \usepackage{color}
 \usepackage{multicol}
 \usepackage{setspace}
+\usepackage{hyperref}
 
 % Do not compile the figure while mantaining the figure box
 %\usepackage[allfiguresdraft]{draftfigure}
@@ -205,291 +206,100 @@ This section highlighted the importance of experimental enzymology in studying C
 
 \section{Part II: Computational enzymology}
 
-\subsection{Experimental CES kinetic parameter databases}
+\subsection{Databases for CES kinetic parameters}
 
-In the era of bioinformatics, providing reliable kinetic parameter data and  effective data management systems is essential to support researchers in  retrieving enzymatic information from the vast amount of biological data  published annually, such as those related to CES enzymes. In this context, online databases have become invaluable  tools for granting researchers access to this information. This section will focus on two of the the most well-known and widely used online  databases containing human CES enzymatic parameters for different substrates.
+In bioinformatics, consistent kinetic data access through data management systems is essential for researchers retrieving enzymatic information from the vast biological literature published annually. Online databases have become invaluable tools providing high-quality structured information to support theoretical studies, which is the focus of this section. We begin our computational enzymology review by examining two widely-used online databases containing human CES enzymatic parameters for various substrates.
+
 
 \subsubsection{BRENDA database}
 
-The BRaunschweig ENzyme DAtabase (BRENDA) is the oldest collection of 
-enzyme-related data compiled from the scientific literature, established in 1987 at the German National Research Centre for Biotechnology in Braunschweig\cite{Schomburg2017}. Today, the BRENDA website (www.brenda-enzymes.org) is accessed by over 100,000 users each month. The site is very intuitive, allowing users to search by entering a text, such as enzyme name, ligand name, EC class, inhibitors, etc., or through structured-based queries by drawing  substrate/products or ligand substructures\cite{Schomburg2017}.
+The BRaunschweig ENzyme DAtabase (BRENDA), established in 1987 at the German National Research Centre for Biotechnology, is the first and most comprehensive enzyme data collection compiled from scientific literature\cite{Schomburg2017}. With over 100,000 monthly users, the BRENDA website (www.brenda-enzymes.org) offers intuitive search capabilities through text queries (enzyme names, ligands, EC classes, inhibitors) or structure-based queries using drawn substrate/product structures\cite{Schomburg2017}. As of October 2025, the search for CES (EC 3.1.1.1) information on BRENDA website resulted in 2079 substrates/products and 67 natural substances entries. Among this data, 849 K\textsubscript{M} values, 550 turnover numbers (\textit{k\textsubscript{cat}}) and 232 \textit{k\textsubscript{cat}}/K\textsubscript{M} values (catalytic efficiency) can be retrieved from diverse bibliographic sources. In addition, the reaction diagrams and references associated with these substrates are provided. 
 
-As of October 2025, the search for CES (EC 3.1.1.1) enzymatic information on BRENDA, website yielded 2079 substrates/products and 67 natural substances. 
-Among this data, 849 K\textsubscript{M} values, 550 turnover numbers (\textit{k\textsubscript{cat}}) and 232 \textit{k\textsubscript{cat}}
-/K\textsubscript{M} values (catalytic efficiency) can be retrieved from diverse bibliographic sources. In addition, the reaction diagrams and references associated with these substrates are provided. 
-
-However, two main disadvantage were noted using the website: 1) it is not possible to filtrate information based on the organism origin of the enzyme, and 2) the kinetic information can not easily be separate by CES isoforms. Despite this limitations, BRENDA website is a valuable starting point for searching kinetic parameters related to CES1 and CES2 substrate hydrolysis.
-
-An alternative to the web server is working with a python parser tool, (github.com/ Robaina/ BRENDApyrser) that allows the user, after downloading the BRENDA database in a local computer as a text file, to work with the database using Structured Query Language (SQL). This way, is possible to performed different searches or queries through the enzyme code name and process this information to retrieve the kinetic parameters and create a new local database with the desired information. The disadvantage of this strategy is that the user needs to have previous knowledge of python and SQL languages to process and create the local database.
-
+However, BRENDA's web interface has two key limitations: 1) inability to filter information by enzyme organism origin, and 2) difficulty classifying kinetic data by CES isoforms. Modern computational enzymology requires local database interaction through structured data formats, yet BRENDA downloads are provided only as plain text files. To address this, the Python package BRENDApyrser\cite{brendapyrser} enables local parsing and manipulation of BRENDA data through structured queries and object-oriented methods. Such solutions make BRENDA a valuable resource for identifying kinetic parameters related to CES1 and CES2 substrate hydrolysis.
 
 \subsubsection{SABIO-RK database}
 
-SABIO-RK is a manually curated database containing enzymatic biochemical reactions and their kinetic parameters (sabiork.h-its.org/), 
-constituting a valuable resource for both  experimental and computational enzymology researchers\cite{Wittig2014}. Data in SABIO-RK are primarily extracted manually from the  literature and stored in a structured and standardized format. The database includes essential data to describe the characteristics of biochemical reactions, the corresponding biological source, kinetic properties and experimental conditions\cite{Wittig2014}.
+SABIO-RK (\href{sabiork.h-its.org/}{sabiork.h-its.org/}) is a manually curated database of biochemically relevant enzymatic reactions and their kinetic parameters, serving as a valuable resource for experimental and computational enzymology researchers\cite{Wittig2014}. Data is manually extracted from literature and stored in standardized formats, including reaction characteristics, biological sources, kinetic properties, and experimental conditions\cite{Wittig2014}. At the time of writing, searching "CES" in SABIO-RK returned 519 entries—fewer than BRENDA but with superior filtering capabilities. The advanced search feature enables filtering by organism (\textit{Homo sapiens}: 168 entries) and enzyme source (recombinant CES: 82 entries). However, like BRENDA, SABIO-RK cannot filter kinetic parameters by CES isoforms. Despite containing less data than BRENDA, SABIO-RK offers better organization and more intuitive filtering options for retrieving relevant information.
 
-The regular search for CES name in SABIO-RK website returned 519 entries, which is a less amount of information compared to BRENDA. The SABIO-RK website offers an advance search feature that allows filtering by various conditions, such as "organisms: \textit{Homo sapiens}", which narrows the results to 168 entries related to human CES data. Additionally, it is possible to filter the results to include only data from recombinant CES enzyme (82 entries). However, like BRENDA database, SABIO-RK also has the limitation of not separating kinetic parameters by CES isoforms. In conclusion, while SABIO-RK contains less information than BRENDA, it offers better organization and more intuitive filtering options, making it easier to retrieve relevant data.
 
 \subsection{CES structural templates}
 
-At the beginning of any computational molecular modeling substrate-enzyme complex study, the information regarding the structure of both, the enzyme and the substrate, are necessary. The structures of the ligands are relatively easy retrieved from different biological databases, such as those mentioned in the previous section. On the other hand, obtaining the structures of the macromolecules (enzymes) can be more challenging. This is because enzyme structures are often distributed across different sources and databases. In this section, the availability structures of CES1 and CES2 enzymes will be discussed.
-
+Computational molecular modeling of substrate-enzyme complexes requires structural information for both components. While ligand structures are easily retrieved from biological databases mentioned previously, obtaining enzyme structures presents greater challenges due to their distribution across multiple sources and databases. This section discusses the structural availability of CES1 and CES2 enzymes.
 
 \subsubsection{CES1 structures}
 
-Since 2003, different crystallographic structures of CES1 have been reported, as summarized in Table~\ref{table:CES1_structures}. The first published structures involved CES1 complexes with ligands from several categories, including metabolites of abuse drugs like cocaine and heroin (homatropine and naloxone methiodide, respectively)\cite{Bencharit2003}, therapeutic drugs (tacrine, tamoxifen and mevastatin)\cite{Bencharit2003a, Fleming2005}, and endogenous substrates (cholate, taurocholate and coenzyme A) \cite{Bencharit2006} (Table~\ref{table:CES1_structures}). Notably, the crystal structure of CES1-tamoxifen complex revealed that tacrine interacts in the catalytic binding site of CES1 in four different binding modes\cite{Bencharit2003a}. These findings highlights the promiscuous nature of CES1, suggesting that its ability to hydrolyze a variety of substrates is driven by its capacity to interact with these ligands in multiple conformations\cite{Bencharit2003a}.
+Since 2003, various CES1 crystallographic structures have been reported (Table~\ref{table:CES1_structures}). Initial structures featured CES1 complexes with diverse ligands: drug metabolites (cocaine and heroin derivatives homatropine and naloxone methiodide)\cite{Bencharit2003}, therapeutic agents (tacrine, tamoxifen, mevastatin)\cite{Bencharit2003a, Fleming2005}, and endogenous substrates (cholate, taurocholate, coenzyme A)\cite{Bencharit2006}. The CES1-tamoxifen crystal structure revealed tacrine binding in four distinct modes within the catalytic site\cite{Bencharit2003a}. These findings highlight CES1's promiscuous nature, demonstrating that its broad substrate hydrolysis capability stems from multiple ligand binding conformations\cite{Bencharit2003a}.
+
 
 \begin{center}
 	\textbf{Table~\ref{table:CES1_structures}}
 \end{center}
 
-Different types of covalent ligands have also been studied through crystallographic structures. The first group to be investigated included the organophosphorus nerve agents soman, tabun and cyclosarin \cite{Fleming2007,Hemmert2010}. More recently, attention shifted to a second family focused on the covalent binding mechanism of serine-selective electrophilic warheads. Two crystal structures were obtained showing CES1 covalently bound to 2,2,2-triﬂuoroacetophenone derivatives at the catalytic serine (Table~\ref{table:CES1_structures})\cite{Gai2024}. Additionally, there are crystallographic structures of CES1 in the absence of substrates (\textit{apo} form)\cite{Greenblatt2012,ArenadeSouza2015,Su2023}. One of these structures (PDB code: 5A7F) exhibited the highest resolution of any reported CES1 crystal structure to date (1.86~\AA).
+Crystallographic studies have also examined CES1 covalently bound to different ligand types. Initial investigations focused on organophosphorus nerve agents (soman, tabun, cyclosarin)\cite{Fleming2007,Hemmert2010}, while recent work explored serine-selective electrophilic warheads. Two crystal structures show CES1 covalently bound to 2,2,2-trifluoroacetophenone derivatives at the catalytic serine (Table~\ref{table:CES1_structures})\cite{Gai2024}. Additionally, substrate-free CES1 structures (\textit{apo} form) are available\cite{Greenblatt2012,ArenadeSouza2015,Su2023}, with one (PDB: 5A7F) achieving the highest reported resolution for CES1 at 1.86~\AA.
 
-For conducting molecular modeling studies focused on substrate selectivity between CES isoforms, the optimal approach is to use the CES1 structure with the highest possible resolution and complexed with non-covalent ligands or in a substrate-free state. On the other hand, it is not advisable to use the crystal structures of CES1 bound to covalent ligands. This is because the catalytic residues, along with other residues in the catalytic binding site, may be biased
-to conformations favoring covalent inhibitors rather than modeling the intrinsic substrate recognition associated to the \textit{apo} form of the enzyme.
+In order to perform molecular modeling studies of substrate selectivity between CES isoforms, the optimal approach uses high-resolution CES1 structures with non-covalent ligands or in substrate-free states. Crystal structures with covalent ligands should be avoided, as catalytic residues and binding site conformations may be biased toward covalent inhibitors rather than reflecting the intrinsic substrate recognition of the \textit{apo} enzyme form.
 
 
 \subsubsection{CES2 structures}
 
-The crystallographic structure of CES2 remains unresolved to this day. Previous studies indicated that CES are glycoproteins and in some cases, like in CES2, the heterogeneity of N-glycan structures and conformations at the surface of proteins generate higher difficulty for the production of non-glycosylated CES2 for 
-crystallization and diffraction studies\cite{Alves2016}. As a result, homology modeling is necessary to obtain the three-dimensional structure of this CES isoform in order to model the binding mode of substrates in the catalytic site of the enzyme.  Different research publications have reported distinct strategies for
-generating the homology model structure of CES2. One of the most common methodologies involves using tools provided by the Swiss Institute of Bioinformatics server (www.expasy.org/). In early publications, the process of generating the CES2 model followed a two-steps procedure: first, the amino acid sequence of human CES2 was retrieved from the Swiss-Prot database, and then submitted to the Swiss-Model\cite{Waterhouse2018} server for fully automated protein structure homology modeling\cite{Vistoli2010a,Zou2016,Song2019}. Over time, this methodology became more automated, allowing users to directly download pre-existing CES2 models created by other researchers via the Swiss-Model server\cite{Qian2021,Lv2025,Ribone2025}.
+To date, CES2 crystallographic structure remains unresolved due to N-glycan heterogeneity at the protein surface, which complicates production of non-glycosylated CES2 for crystallization studies\cite{Alves2016}. Consequently, homology modeling is essential for obtaining three-dimensional CES2 structures to model substrate binding in the catalytic site. Various strategies have been reported for generating CES2 homology models, with the Swiss Institute of Bioinformatics server (www.expasy.org/) being most commonly used. Early approaches followed a two-step procedure: retrieving human CES2 amino acid sequences from Swiss-Prot, then submitting them to Swiss-Model\cite{Waterhouse2018} for automated homology modeling\cite{Vistoli2010a,Zou2016,Song2019}. This methodology has since evolved, allowing direct download of pre-existing CES2 models created by other researchers via Swiss-Model\cite{Qian2021,Lv2025,Ribone2025}.
 
-The second approach involves generating the CES2 structure using homology modeling software. Several studies have reported the use of the open-source \textit{Modeler} software\cite{Webb2017} to generate the homology model of CES2 and perform subsequent molecular modeling studies on this isoform\cite{Wang2018,Choudhary2019}.
+A second approach uses homology modeling software to generate CES2 structures. Several studies have employed the open-source \textit{Modeler} software\cite{Webb2017} for CES2 homology modeling and subsequent molecular modeling studies\cite{Wang2018,Choudhary2019}.
 
-In recent years, \textit{AlphaFold}, a powerful neural network-based model
-methodology has been developed for predicting the three-dimensional 
-structures of proteins\cite{Jumper2021}. Since its beginning in 2021, 
-this machine learning approach has generated more than 200 million protein 
-structures, all freely available for download from the AlphaFold database 
-(alphafold.ebi.ac.uk). To the best of our knowledge, despite its accessibility
-and remarkable accuracy, an AlphaFold-predicted human CES2 structure has not yet
-been utilized for the molecular modeling of this enzyme with any substrate.
+In recent years, \textit{AlphaFold}, a neural network-based methodology for predicting three-dimensional protein structures\cite{Jumper2021, fang2025alphafold}, has generated over 200 million protein structures since 2021, all freely available from the AlphaFold database (alphafold.ebi.ac.uk). Despite its accessibility and remarkable accuracy, to the best of our knowledge the AlphaFold-predicted human CES2 structure has not yet been utilized for molecular modeling studies with substrates.
+
 
 \subsection{Molecular modeling methods}
 
-To analyzed the results from experimental enzymology studies of the CES-substrate
-complexes, a series of molecular modeling methodologies can be employed. These 
-computational techniques were selected to investigate, at an atomistic level,
-the kinetic parameters of different substrates for both CES isoforms. This section
-is organized in two subsections: 1) Modeling of substrate:enzyme recognition 
-to study the affinity constant (K\textsubscript{M}) and 2) Modeling of 
-substrate:enzyme reactivity employed to examined the catalytic constant
-(\textit{k\textsubscript{cat}}).
+Complementing experimental enzymology studies, diverse molecular modeling methodologies enable atomistic investigation of the structural basis determining kinetic parameters for CES substrates. This section reviews such approaches in two subsections: 1) Modeling substrate-enzyme recognition to study affinity constants (K\textsubscript{M}) and 2) Modeling substrate-enzyme reactivity to examine catalytic constants (\textit{k\textsubscript{cat}}).
 
 
 \subsubsection{Modeling of substrate:enzyme recognition}
 
-Typically, the study of the recognition and binding of CES substrates begins with a molecular docking procedure, aimed to identify substrate conformations that yield the lowest-energy interactions with residues in the CES catalytic binding site. In a subsequent stage, the CES-substrate complex is subjected to molecular dynamics (MD) simulation to characterize its dynamic behavior and stability in an explicit aqueous environment and at physiological temperature. Finally, a free-energy interaction  analyses are performed based on the MD trajectories obtained for the CES-substrate complex. A small subset of studies incorporate all three of these molecular modeling methods in the investigation of CES-substrate 
-complexes. Although a few studies incorporate all three of these molecular modeling approaches when investigating CES–substrate interactions, most rely solely on molecular docking to identify the optimal substrate conformation within the CES catalytic binding site.
+CES substrate recognition studies typically begin with molecular docking\cite{nivatya2025assessing} to identify substrate conformations yielding lowest-energy interactions within the catalytic binding site. Subsequently, CES-substrate complexes undergo molecular dynamics (MD) simulations to characterize dynamic behavior and stability in explicit aqueous environments at physiological temperature . Finally, free-energy interaction analyses are performed using MD trajectories. While few studies incorporate all three methods, most CES-substrate investigations rely solely on molecular docking to identify optimal substrate conformations within the catalytic site.
 
-Early molecular docking studies designed to explored the selectivity of CES1 and CES2 were conducted by the group of Vistolli et al. \cite{Vistoli2010,Vistoli2010a}. In these works, 40 known CES substrates were subjected to molecular docking protocols using two crystallographic structures of CES1 (PDB codes: 1MX9 and 1YAJ) and a homology modeling structure of CES2. Different scoring functions were calculated and correlated with the experimentally reported K\textsubscript{M} values to develop predictive models of substrate affinity toward both CES isoforms. In both cases, the results revealed a strong correlation between K\textsubscript{M} and the calculated lipophilic interaction scores, highlighting the central role of hydrophobic interactions,
-primarily attributable to the abundance of apolar residues within the catalytic binding site\cite{Vistoli2010,Vistoli2010a}.
+Early molecular docking studies exploring CES1 and CES2 selectivity were conducted by Vistoli et al.\cite{Vistoli2010,Vistoli2010a}. They subjected 40 known CES substrates to molecular docking using two CES1 crystal structures (PDB: 1MX9, 1YAJ) and a CES2 homology model. Various scoring functions were used to calculate and correlate the theoretical findings with experimental K\textsubscript{M} values, thus enabling the development of predictive models modeling substrate affinity for both isoforms. Results revealed strong correlations between K\textsubscript{M} and lipophilic interaction scores, highlighting the central role of hydrophobic interactions due to abundant apolar residues in the catalytic binding site\cite{Vistoli2010,Vistoli2010a}.
 
+Molecular docking and MD simulations have been employed to design selective human CES2 inhibitors, focusing on glycyrrhetinic acid and benzofuranone derivatives (Figure<del>\ref{fig:CES2_substrates})\cite{Zou2016,Yang2023}. In the first study, molecular docking of the most active glycyrrhetinic acid derivative elucidated its 1000-fold selectivity for CES2 over CES1\cite{Zou2016}. Results showed greater hydrogen bonding with CES2 catalytic site residues than CES1, with strong interactions with catalytic residue Ser228 blocking CES2 substrate recognition and binding\cite{Zou2016}. Similarly, molecular docking of the most selective benzofuranone derivative revealed more favorable interactions and binding contacts with CES2 than CES1\cite{Yang2023}. MD simulation and free-energy decomposition of the CES2-inhibitor complex showed stability over 50 ns, with hydrophobic interactions playing major roles alongside hydrophilic residues like catalytic Ser228\cite{Yang2023}. Both selective CES2 inhibitors contain carboxylic acid groups (Figure</del>\ref{fig4}), suggesting this structural feature could guide design of novel, more selective CES2 inhibitors.
 
-A combination of molecular docking and MD simulations have
-been employed to assist in the design of selective inhibitors of human 
-CES2. These studies were focused on the design, synthesis and 
-structure-activity relationship of glycyrrhetinic acid and benzofuranone 
-derivatives (Figure~\ref{fig:CES2_substrates})\cite{Zou2016,Yang2023}. In the first work,
-molecular docking was performed using the most active and selective 
-glycyrrhetinic acid derivative against both CES isoforms to
-elucidate its 1000-fold preference for CES2 over CES1\cite{Zou2016}.
-The results indicated that this derivative displayed a greater number of 
-hydrogen bond interactions with residues in the CES2 catalytic binding site 
-residues than in CES1. The authors concluded that the high hydrogen
-bond interaction of this derivative with the essential catalytic CES2
-residue Ser228 totally block the recognition and binding of any CES2 
-substrate\cite{Zou2016}. In the second study, a similar molecular 
-docking analysis was performed for the most active and selective 
-benzofuranone derivative against both isoforms. The results were consistent:
-the inhibitor exhibited more favorable interactions and a higher number binding
-site contacts with CES2 residues compared to CES1\cite{Yang2023}. Furthermore,
-MD simulation and free-energy decomposition analyses of the CES2-inhibitor complex
-revealed that the complex remain stable over 50 ns of simulation 
-and that the hydrophobic interactions played a major role in the binding 
-of the inhibitor to CES2, with a significant contribution from hydrophilic 
-residues such is the case of the catalytic Ser228\cite{Yang2023}. As shown in 
-Figure~\ref{fig4}, both selective CES2 inhibitors share the presence of a 
-carboxylic acid group in their molecular structures, indicating that further 
-analysis of this structural feature could orient the design of novel and 
-more selective CES2 inhibitors.
-
-
-In a more recent study\cite{Ribone2025}, molecular docking, MD simulation
-and free-energy interaction decomposition analyses were performed on two 
-families of previosly studied substrate families: five \textit{p}-nitrophenyl 
-ester derivatives\cite{Hatfield2010} and two pyrethroid stereoisomers\cite{Nishi2006}, 
-using both CES1 and CES2. Consistent with 
-earlier findings, hydrophobic interactions were found to contribute 
-substantially to the CES-ligand free-energy of interaction, correlating well
-with experimentally determined affinity constants (K\textsubscript{M})\cite{Ribone2025}. 
-An additional key observation was that the higher binding cavity volume of CES2, relative to CES1,
-enabled one pyrethroid stereoisomer to adopt a distinct interaction pattern and
-thereby maintain a higher affinity (lower K\textsubscript{M}) for CES2 
-compared to the other stereoisomer. Overall, the substrates analyzed in this work formed the most 
-favorable interaction patterns with residues in the respective CES binding sites, positioning
-in every case the oxygen of the carbonyl ester moiety in the oxyanion hole thus generating a
-conformation close to the catalytic serine residue, resulting in the highest attainable affinity
-for each CES isoform\cite{Ribone2025}.
+A recent study\cite{Ribone2025} performed molecular docking, MD simulation, and free-energy interaction decomposition analyses on two substrate families: five \textit{p}-nitrophenyl ester derivatives\cite{Hatfield2010} and two pyrethroid stereoisomers\cite{Nishi2006}, using both CES1 and CES2. Consistent with earlier findings, hydrophobic interactions contributed substantially to CES-ligand binding free-energy, correlating well with experimental affinity constants (K\textsubscript{M})\cite{Ribone2025}. Additionally, CES2's larger binding cavity volume enabled one pyrethroid stereoisomer to adopt distinct interaction patterns, maintaining higher affinity (lower K\textsubscript{M}) than the other stereoisomer. All analyzed substrates formed optimal interaction patterns with respective CES binding site residues, positioning the carbonyl ester oxygen in the oxyanion hole near the catalytic serine, achieving maximum attainable affinity for each isoform\cite{Ribone2025}.
 
 \subsubsection{Modeling of substrate:enzyme reactivity}
 
-The catalytic constant determined in enzyme-catalyzed hydrolytic
-reaction requires specialized computational methodologies 
-to analyzed the free-energy of activation associated with this
-assay. The most commonly employed approach for this purpose is hybrid 
-QM/MM simulation. In this method, the ligand and the catalytic residues
-directly involved in the hydrolysis reaction are modeled using quantum mechanics
-(QM), while the remaining enzyme residues are described with a 
-molecular mechanics (MM) force field. The reaction hydrolysis is modeled
-using an umbrella sampling approach, an enhanced sampling technique, to 
-overcome energy barriers by restraining the system to different points 
-along a reaction coordinate in separate "windows". By combining the results
-from these biased simulations, the method generates an unbiased potential
-of mean force (PMF) or free energy profile, providing a detailed picture of 
-the reaction pathway, states, and transition energies.
+The catalytic constant determination in enzyme-catalyzed hydrolytic reactions requires specialized computational methodologies to analyze the activation free-energy associated with these processes. The most commonly employed approach for this purpose involves hybrid QM/MM simulations\cite{levy2025modeling}. In this methodology, the substrate ligand and catalytic residues directly participating in the hydrolysis reaction are modeled using quantum mechanical (QM) calculations, while the remaining enzyme residues and surrounding environment are described using molecular mechanics (MM) force field approaches. The hydrolysis reaction mechanism is typically modeled using umbrella sampling methodologies\cite{govind2023binding}, which represent enhanced sampling schemes specifically designed to overcome significant energy barriers by systematically restraining the molecular system to different predetermined points along a defined reaction coordinate in separate computational "\textit{windows}". By systematically combining and analyzing the results obtained from these individually biased simulations, this computational method generates an unbiased potential of mean force (PMF) or comprehensive free energy profile\cite{yang2023free}, thereby providing researchers with a detailed and quantitative picture of the complete reaction pathway, including intermediate states, transition states, and their associated energetic profiles.
 
-There are relatively few reported studies employing hybrid QM/MM
-simulations for substrates hydrolyzed by human CES, likely
-because of the greater complexity of this methodology compared with
-the molecular modeling methodologies described in the previous section.
-Given the importance of human CES in the metabolism of abuse drugs,
-several works have investigated the hydrolysis mechanism of cocaine by
-CES1 and CES2. The first study reported the hydrolysis mechanism of 
-cocaine by CES1 using hybrid QM/MM simulation alongside the experimental 
-determination of the corresponding kinetic parameters (K\textsubscript{M}
-and \textit{k\textsubscript{cat}})\cite{Yao2018}. The QM region was
-parameterized with the semi-empirical SCC-DFTB method, while the MM
-region with CHARMM27 force field. The reaction was modeled using an umbrella
-sampling approach, where the reaction coordinate (RC) was defined as a
-linear combination of two covalent bond distances: one forming and one
-breaking. The simulations indicated that CES1 catalyzes the hydrolysis
-of cocaine to benzoylecgonine and methanol (Figure\ref{fig1}) through a single-step 
-acylation reaction followed by a single-step deacylation stage, each showing a 
-distinct transition state (TS). The combined free-energy profile  of both 
-reaction steps revealed that the acylation TS is the rate-limiting 
-reaction, with a free energy barrier of 20.1 kcal/mol. 
-This result is in close agreement with the experimental free-energy barrier,
-derived from the catalytic constant, which was 21.5 kcal/mol, demonstrating 
-the high accuracy of the hybrid QM/MM methodology employed in this study.\cite{Yao2018}.
+There are relatively few reported computational studies employing sophisticated hybrid QM/MM simulation methodologies to systematically explore human CES subtype selectivity patterns, likely attributable to the significantly greater computational complexity and technical demands of this advanced methodology compared with the more straightforward molecular modeling methodologies comprehensively described in the previous section. Given the critical importance and clinical relevance of human CES enzymes in the complex metabolic pathways of various abuse drugs, several comprehensive research investigations have systematically investigated the detailed molecular hydrolysis mechanisms of cocaine catalyzed by both CES1 and CES2 isoforms. The first pioneering study explored the complete hydrolysis mechanism of cocaine specifically catalyzed by CES1 using sophisticated hybrid QM/MM simulation approaches alongside parallel experimental determination and validation of the corresponding thermodynamic and kinetic parameters (K\textsubscript{M} and \textit{k\textsubscript{cat}})\cite{Yao2018}. The quantum mechanical region was carefully parameterized using the well-established semi-empirical SCC-DFTB computational method \cite{elstner2006scc}, while the molecular mechanics region was accurately described using the robust CHARMM27 force field parameters. The complex enzymatic reaction mechanism was systematically modeled using an advanced umbrella sampling computational approach, where the critical reaction coordinate (RC) was precisely defined as a mathematically linear combination of two essential covalent bond distances: one representing the bond formation process and one representing the simultaneous bond breaking process. These computational simulations indicated that CES1 effectively catalyzes the hydrolytic conversion of cocaine substrate to benzoylecgonine and methanol products (Figure\ref{fig1}) through a well-defined single-step acylation reaction mechanism followed by a subsequent single-step deacylation stage, with each individual step exhibiting a distinct and characteristic transition state (TS) structure. The combined free-energy profile analysis of both sequential reaction steps revealed that the acylation transition state represents the rate-limiting reaction step, associated to a calculated free energy barrier of 20.1 kcal/mol. This computed theoretical result demonstrates remarkably close agreement with the experimentally determined free-energy barrier value, which was derived from the measured catalytic constant and found to be 21.5 kcal/mol, thereby conclusively demonstrating the exceptional accuracy and reliability of the hybrid QM/MM computational methodology employed throughout this study\cite{Yao2018}.
 
-A second article reported a study similar to the previous one,
-exploring the hydrolysis of cocaine by CES2 to produce ecgonine 
-methyl ester and benzoic acid (Figure~\ref{fig1}). In this study,
-the QM region was parameterized using the semi-empirical PM6 method, and 
-the MM area was modeled with the ff99SB force field. An umbrella
-sampling approach was again employed to follow the two-steps hydrolysis
-reaction, in which two covalent bond distances,
-one bond forming and one bond breaking, were used as reaction coordinates.
-The resulting 2D-PMF profiles for the full catalytic cycle showed
-that each reaction stage proceeds through a tetrahedral intermediate
-structure and involves two transition states. Among these, TS\textsubscript{4}
-(associated with the formation of benzoic acid) was identified as the rate-limiting
-step of cocaine hydrolysis by the CES2, displaying an activation free-energy
-barrier of 19.5 kcal/mol. This lower energetic barrier respect to 
-CES1 is consistent with previous experimental findings that reported 
-a higher turnover number for CES2 than for CES1.
+A second article reported a detailed computational study closely paralleling the previous investigation, systematically exploring the enzymatic hydrolysis mechanism of cocaine specifically catalyzed by CES2 to produce the alternative metabolic products ecgonine methyl ester and benzoic acid (Figure~\ref{fig1}). In this complementary computational study, the quantum mechanical region was carefully parameterized utilizing the well-established semi-empirical PM6 computational method, while the molecular mechanics region was accurately modeled using the robust ff99SB force field parameters. An advanced umbrella sampling computational approach was again strategically employed to comprehensively follow and characterize the complete two-step hydrolysis reaction mechanism, wherein two critical covalent bond distances - one representing bond formation and one representing bond breaking - were systematically utilized as the defining reaction coordinates for the simulation protocol. The resulting two-dimensional potential of mean force (2D-PMF) profiles for the complete catalytic cycle demonstrated that each individual reaction stage proceeds through a well-defined tetrahedral intermediate molecular structure and involves two distinct transition state configurations. Among these identified transition states, TS\textsubscript{4} (specifically associated with the formation of the benzoic acid product) was identified as the rate-limiting step governing cocaine hydrolysis catalyzed by CES2, displaying a calculated activation free-energy barrier of 19.5 kcal/mol. This comparatively lower energetic barrier relative to the corresponding CES1 mechanism is consistent with previous experimental findings reporting significantly higher turnover numbers for CES2 compared to CES1 under similar reaction conditions.
 
-In the previous section, a study involving two families of substrates,
-\textit{p}-nitrophenyl esters and pyrethroid stereoisomers, in 
-complex with CES1 and CES2 was described. In this work,
-two \textit{p}-nitrophenyl ester derivatives and two pyrethroid
-stereoisomers were subjected to hybrid QM/MM simulation to analyze
-their hydrolysis by both CES isoforms\cite{Ribone2025}. The
-QM/MM simulation protocol followed was similar to the earlier study
-of cocaine with CES1\cite{Yao2018}; the QM region was parameterized 
-using the semi-empirical SCC-DFTB3 method, while the MM region was modeled
-with Amber20 force field (ff14SB). As in the previous example, the study
-employed an umbrella sampling approach; however, in this case, four 
-covalent bond distances, two bonds forming and two bonds breaking 
-(Figure~\ref{fig5}), were combined linearly using a linear combination 
-of distances (LCOD) to define the reaction coordinate (RC).
 
-Across all modeled reactions, substrate hydrolysis by both CES isoforms
-proceeded through a concerted single-step acylation stage followed by 
-another single-step deacylation stage, each involving one transition state (TS).
-Analysis of the results showed that the rate-limiting step for each 
-substrate corresponded to the TS associated with the highest 
-molecular steric hindrance encountered during the course of 
-the hydrolysis, acylation or deacylation stage\cite{Ribone2025}. 
-The authors concluded that the CES selectivity is not solely determined
-by the molecular size of the alkyl or acyl groups of the substrates,
-but instead arises from a more complex scenario governed by the
-initial conformation of the ligand within the CES binding site\cite{Ribone2025}.
+In the section corresponding to molecular docking assays, a study involving two families of substrates, \textit{p}-nitrophenyl esters and pyrethroid stereoisomers in complex with CES1 and CES2 was described. As a followup work, two \textit{p}-nitrophenyl ester derivatives and two pyrethroid stereoisomers were subjected to hybrid QM/MM simulation to analyze their hydrolysis by both CES isoforms\cite{Ribone2025}. The QM/MM simulation protocol followed was similar to the earlier study of cocaine with CES1\cite{Yao2018}; the QM region was parameterized using the semi-empirical SCC-DFTB3 method, while the MM region was modeled using the \textit{ff14SB} force field as implemented in the Amber20 software package. As in the previous example, the study employed an umbrella sampling approach; however, in this case, four covalent bond distances, two bonds forming and two bonds breaking (Figure~\ref{fig5}), were combined linearly using a linear combination of distances (LCOD) to define the reaction coordinate (RC). Across all modeled reactions, substrate hydrolysis by both CES isoforms proceeded through a concerted single-step acylation stage followed by another single-step deacylation stage, each involving one transition state (TS). Analysis of the results showed that the rate-limiting step for each 
+substrate corresponded to the TS associated with the highest molecular steric hindrance encountered during the course of the hydrolysis, acylation or deacylation stage\cite{Ribone2025}. The authors concluded that the CES selectivity is not solely determined by the molecular size of the alkyl or acyl groups of the substrates, but instead arises from a more complex scenario governed by the initial conformation of the ligand within the CES binding site\cite{Ribone2025}.
 
-Overall, all studies discussed in this section showed a good 
-correlation between the experimental catalytic constant
-(\textit{k\textsubscript{cat}}) and the calculated free-energy of
-activation from the rate-limiting TS reaction stage, demonstrating
-the reliability of the hybrid QM/MM methodology. This was observed
-despite the differences in the proposed hydrolysis mechanisms, 
-which involved either two or four transition-state structures.
+In the section corresponding to molecular docking assays, a comprehensive study involving two distinct families of substrates—\textit{p}-nitrophenyl esters and pyrethroid stereoisomers—in complex with both CES1 and CES2 enzymes was thoroughly described. As a follow-up investigation, two representative \textit{p}-nitrophenyl ester derivatives and two specific pyrethroid stereoisomers were systematically subjected to hybrid QM/MM simulation methodologies to analyze their enzymatic hydrolysis mechanisms catalyzed by both CES isoforms\cite{Ribone2025}. The computational QM/MM simulation protocol followed was closely similar to the earlier pioneering study of cocaine hydrolysis with CES1\cite{Yao2018}; specifically, the quantum mechanical region was precisely parameterized using the advanced semi-empirical SCC-DFTB3 computational method, while the molecular mechanics region was accurately modeled using the \textit{ff14SB} force field parameters as implemented in the Amber20 software package. As was the case for the previous example, this study strategically employed an advanced umbrella sampling approach; however, in this particular case, four critical covalent bond distances—two bonds undergoing formation and two bonds undergoing breaking (Figure~\ref{fig5}) - were systematically combined linearly using a sophisticated linear combination of distances (LCOD) mathematical approach to precisely define the reaction coordinate (RC) for the simulation protocol. Across all modeled reactions, substrate hydrolysis catalyzed by both CES isoforms consistently proceeded through a well-defined concerted single-step acylation stage followed by another distinct single-step deacylation stage, with each individual stage involving one characteristic transition state (TS) structure. Comprehensive analysis of the computational results clearly showed that the rate-limiting step for each individual substrate consistently corresponded to the transition state associated with the highest degree of molecular steric hindrance encountered during the course of the complete hydrolysis process, whether occurring during the acylation or deacylation stage\cite{Ribone2025}. The authors concluded that CES selectivity is not solely determined by the simple molecular size parameters of the alkyl or acyl functional groups of the substrate molecules, but instead arises from a significantly more complex mechanistic scenario governed by the initial three-dimensional conformation and orientation of the ligand molecule within the specific CES binding site environment\cite{Ribone2025}.
+
+Overall, all studies discussed in this section exhibited a good correlation between the experimental catalytic constant (\textit{k\textsubscript{cat}}) and the calculated free-energy of activation from the rate-limiting TS reaction stage, demonstrating the reliability of the hybrid QM/MM methodology. This was observed despite the differences in the proposed hydrolysis mechanisms, which involved either two or four transition-state structures.
+
+
+Overall, all computational studies comprehensively discussed throughout this section consistently exhibited excellent correlations between experimentally determined catalytic constants (\textit{k\textsubscript{cat}}) and the corresponding calculated activation free-energy values derived from the rate-limiting transition state reaction stages, thereby conclusively demonstrating the  reliability and predictive accuracy of hybrid QM/MM computational methods. This remarkable agreement between theoretical calculations and experimental measurements was consistently observed despite the significant differences in the proposed enzymatic hydrolysis mechanisms across different substrate-enzyme systems, which involved either simplified two-transition-state or more complex four-transition-state structural arrangements during the complete catalytic process.
+
+
 
 \section{Part III: Combination of experimental and computational enzymology} 
 
-This final section of the article is devoted to studies that combined
-experimental and computational methodologies to investigate
-the hydrolysis properties of various substrates by both
-CES isoforms.
+This final section of the article is devoted to studies that combined experimental and computational methodologies to investigate the hydrolysis properties of various substrates by both CES isoforms.
 
-In the first study, the hydrolysis of fenofibrate by CES1 and CES2 was 
-examined to identify the primary enzyme responsible
-for its metabolization in humans\cite{Li2023}. The kinetic parameters were 
-determined by measuring the formation rate of fenoﬁbric acid 
-(the hydrolytic metabolite of fenoﬁbrate) through HPLC-UV in the presence
-of human microsoms and recombinant CES1 and CES2. These results exhibited 
-that the affinity constant was slightly higher for CES1, but the major difference
-was observed in the catalytic constant, with CES1 exhibiting a substantially
-faster reaction rate than CES2\cite{Li2023}. 
+In the first reviewed study, the enzymatic hydrolysis of fenofibrate catalyzed by both CES1 and CES2 was systematically examined to definitively identify the primary enzyme responsible for its metabolic conversion in human biological systems\cite{Li2023}. The kinetic parameters were precisely determined by carefully measuring the formation rate of fenofibric acid (the primary hydrolytic metabolite of fenofibrate) by means of HPLC-UV analytical techniques in the presence of human liver microsomes and purified recombinant CES1 and CES2 enzymes. These experimental results demonstrated that the substrate affinity constant was marginally higher for CES1, but the most significant difference was observed in the catalytic constant values, with CES1 exhibiting a substantially faster enzymatic reaction rate compared to CES2\cite{Li2023}. To provide computational support for these experimental findings, the authors performed molecular docking studies of fenofibrate within the active binding sites of both CES isoforms, discovering that fenofibrate consistently adopted a more thermodynamically favorable binding conformation and generated higher docking scores when positioned within the catalytic binding site of CES1 compared to CES2, results that were entirely consistent with the experimental substrate affinity measurements. Advanced hybrid QM/MM simulations were not performed or reported in this particular publication\cite{Li2023}. Overall, this integrated experimental and computational study provides valuable mechanistic insight into the molecular factors underlying the pronounced kinetic differences observed in fenofibrate hydrolysis between the two distinct CES isoforms.
 
-The authors performed a molecular docking study of fenofibrate within 
-the binding site of both CES isoforms. The docking results showed that 
-fenoﬁbrate adopted a more favorable binding pose and received a better 
-docking score into the catalytic binding site of CES1 than CES2, consistent
-with the experimental affinity results. Hybrid QM/MM
-simulations were not performed in this publication\cite{Li2023}. This
-study provides useful insight into the factors underlying the pronounced 
-differences in fenofibrate hydrolysis between the two CES isoforms.
 
-The second study, reported the design and CES selectivity of a family
-of four fluorescent substrates derived from a naphthalimide scaffold
-\cite{Jia2021}. Enzymatic assay was monitored by measuring the 
-emission intensity of the hydrolysis product at 520 nm (excitation 450 
-nm) after incubation with CES1 and CES2. Only the derivatives 
-containing amide and carbamate moieties (NIC-1 and NIC-2, 
-figure~\ref{fig:NIC_hydrolysis}) underwent specific hydrolysis in the presence of CES2. In contrast, the other two carbamates in which the nitrogen was fully
-substituted with carbon atoms (NIC-3 and NIC-4, figure~\ref{fig:NIC_hydrolysis}),
-exhibited inhibitory effects of both CES isoforms.
+The second study, reported the design and CES selectivity of a family of four fluorescent substrates derived from a naphthalimide scaffold \cite{Jia2021}. Enzymatic activity was monitored by measuring the 
+emission intensity of the hydrolysis product at 520 nm (excitation 450 nm) after incubation with CES1 and CES2. Only the derivatives containing amide and carbamate moieties (NIC-1 and NIC-2,figure~\ref{fig:NIC_hydrolysis}) underwent specific hydrolysis in the presence of CES2. In contrast, the other two carbamates in which the nitrogen was fully substituted with carbon atoms (NIC-3 and NIC-4, figure~\ref{fig:NIC_hydrolysis}), exhibited inhibitory effects of both CES isoforms. To investigate the shift in activity from CES substrate to inhibitor, the binding properties of NIC-4 toward CES1 were analyzed using molecular modeling methods with CES1 and compared with the known substrate \textit{p}-nitrophenyl acetate (pNPA)\cite{Jia2021}. Molecular docking followed by MD simulations, revealed that both NIC-4 and pNPA displayed similar interaction patterns with the residues of the CES1 binding site. In addition, a steered MD simulation was performed in which the structures and the binding site residues were parameterized with SCC-DFTB method, while the remaining part of the enzyme was modeled applyin parameters from the ff14SB force ﬁeld. The reaction coordinate was defined as the distance between the catalytic serine oxygen and the carbonyl carbon of the substrate, representing the nucleophilic attack in the hydrolysis reaction. During the simulation of pNPA hydrolysis by CES1, the proton transfer from the catalytic serine to the nitrogen atom of the catalytic histidine occurred spontaneously, following the expected acylation mechanism with an estimated energetic barrier of 20 kcal/mol. In contrast, during the simulation of NIC-4 with CES1, the proton transfer did not occurred, originated in the fact that the methyl group positioned near the potential nucleophilic center of NIC-4 (Figure~\ref{fig6}) sterically blocked the transfer pathway, forcing the serine hydroxyl group to orient away from the histidine imidazole. The authors concluded that NIC-4 mimics the interaction pattern of the classic substrate to favour enzyme binding but hinders the necessary proton transfer process by methyl substitution of nitrogen in the carbamate, thus preventing the nucleophilic attack from happening\cite{Jia2021}. This last work is a clear example on how integrating experimental and molecular modeling techniques are extremely complementary to explore with higher accuracy the mechanism behind the substrate CES selectivity and also to assist in the design to selective CES inhibitors.
 
-To investigate the shift in activity from CES substrate to inhibitor,
-the binding properties of NIC-4 toward CES1 were analyzed using molecular
-modeling methods with CES1 and compared with the known substrate 
-\textit{p}-nitrophenyl acetate (pNPA)\cite{Jia2021}. Molecular docking 
-followed by MD simulations, revealed that both NIC-4 and pNPA displayed similar 
-interaction patterns with the residues of the CES1 binding site.
-In addition, a steered MD simulation was performed in which the structures 
-and the binding site residues were parameterized with SCC-DFTB method, while
-the remaining part of the enzyme with Amber ff14SB force ﬁeld. The reaction
-coordinate was defined as the distance between the catalytic serine oxygen and
-the carbonyl carbon of the substrate, representing the nucleophilic attack 
-in the hydrolysis reaction. During the simulation of pNPA hydrolysis by CES1,
-the proton transfer from the catalytic serine to the nitrogen atom of the 
-catalytic histidine occurred spontaneously, following the normal acylation
-mechanism with an estimated energetic barrier of 20 kcal/mol. 
-In contrast, during the simulation of NIC-4 with CES1, this proton transfer 
-did not occur, because the methyl group positioned near the potential 
-nucleophilic center of NIC-4 (Figure~\ref{fig6}) sterically blocked the 
-transfer pathway, forcing the serine hydroxyl group to orient away from the
-histidine imidazole. The authors concluded that NIC-4 mimics the interaction
-pattern of the classic substrate to beneﬁt enzyme binding but hinders the 
-necessary proton transfer process by methyl substitution of nitrogen in
-the carbamate, thus preventing the nucleophilic attack from happening\cite{Jia2021}.
 
-This last work is a clear example that integration of experimental and molecular 
-modeling results analysis are extremely neccessary to explain with higher accuracy
-the mechanism behind the substrate CES selectivity and also to assist in the 
-design to selective CES inhibitors.
+The second comprehensive study reported the systematic design and detailed CES selectivity evaluation of a family of four novel fluorescent substrates derived from a naphthalimide molecular scaffold\cite{Jia2021}. Enzymatic activity was monitored by measuring the fluorescence emission intensity of the hydrolysis products at 520 nm (excitation wavelength 450 nm) following incubation with purified CES1 and CES2 enzymes. Only the specific derivatives containing amide and carbamate functional moieties (NIC-1 and NIC-2, Figure<del>\ref{fig:NIC_hydrolysis}) underwent selective hydrolytic cleavage in the presence of CES2 enzyme. In contrast, the other two structurally related carbamate compounds in which the nitrogen atom was fully substituted with carbon atoms (NIC-3 and NIC-4, Figure</del>\ref{fig:NIC_hydrolysis}) exhibited potent inhibitory effects against both CES isoforms. To investigate the molecular basis for this activity shift from CES substrate to potent inhibitor, the detailed binding properties of NIC-4 toward CES1 were explored using advanced molecular modeling methodologies with CES1 and compared with the well-characterized reference substrate \textit{p}-nitrophenyl acetate (pNPA)\cite{Jia2021}. Molecular docking assays followed by extensive molecular dynamics simulations revealed that both NIC-4 and pNPA displayed remarkably similar interaction patterns with the critical residues of the CES1 binding site. Additionally, a specialized steered molecular dynamics simulation was performed in which the substrate structures and the binding site residues were parameterized using the SCC-DFTB quantum mechanical method, while the remaining portions of the enzyme was modeled applying parameters from the robust ff14SB force field. The reaction coordinate was defined as the distance between the catalytic serine oxygen atom and the carbonyl carbon of the substrate molecule, representing the critical nucleophilic attack in the hydrolysis reaction mechanism. During the computational simulation of pNPA hydrolysis catalyzed by CES1, the essential proton transfer from the catalytic serine to the nitrogen atom of the catalytic histidine occurred spontaneously, following the expected acylation mechanism with an estimated energetic barrier of approximately 20 kcal/mol. In contrast, during the simulation of NIC-4 with CES1, the crucial proton transfer did not occur, originating from the fact that the methyl group positioned near the potential nucleophilic center of NIC-4 (Figure~\ref{fig6}) sterically blocked the transfer pathway, forcing the serine hydroxyl group to orient away from the histidine imidazole ring. The authors concluded that NIC-4 mimics the interaction pattern of classic substrates to favor enzyme binding but simultaneously hinders the necessary proton transfer process through methyl substitution of nitrogen in the carbamate moiety, thus preventing the nucleophilic attack from occurring\cite{Jia2021}. This comprehensive work represents a clear example of how integrating experimental and molecular modeling techniques are highly complementary approaches to explore with atomistic accuracy the complex mechanisms underlying substrate CES selectivity and also to assist in the rational design of selective CES inhibitors.
+
+
+DEJO ACA
 
 \section{Conclusions}
 
